@@ -7,13 +7,18 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Employee {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name;
+
     private Integer age;
     private String gender;
     private Integer salary;
     private Long companyId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "companyId", updatable = false, insertable = false)
+    private Company company;
 
     public Employee() {
     }
@@ -24,6 +29,10 @@ public class Employee {
         this.gender = gender;
         this.salary = salary;
         this.companyId = companyId;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Long getCompanyId() {
@@ -40,10 +49,6 @@ public class Employee {
 
     public void setSalary(Integer salary) {
         this.salary = salary;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getName() {
@@ -72,3 +77,5 @@ public class Employee {
         this.gender = gender;
     }
 }
+
+

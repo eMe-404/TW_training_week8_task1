@@ -36,7 +36,7 @@ public class EmployeeController {
     @RequestMapping(value = "/employees/page/{page}/pageSize/{pageSize}", method = RequestMethod.GET)
     public Page<Employee> showEmployeesByPagination(@PathVariable(value = "page") int page
             , @PathVariable(value = "pageSize") int pageSize) {
-        return employeeRepository.findAll(new PageRequest(page, pageSize));
+        return employeeRepository.findAll(new PageRequest(page-1, pageSize));
     }
 
 
@@ -53,8 +53,9 @@ public class EmployeeController {
     }
 
 
-    @RequestMapping(value = "/employees", method = RequestMethod.PUT)
-    public Employee updateOneEmployee(@RequestBody Employee employee) {
+    @RequestMapping(value = "/employees/{id}", method = RequestMethod.PUT)
+    public Employee updateOneEmployee(@RequestBody Employee employee,@PathVariable Long id) {
+        employee.setId(id);
         return employeeRepository.save(employee);
     }
 

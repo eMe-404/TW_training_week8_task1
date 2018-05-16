@@ -14,7 +14,7 @@ public class Company {
     private String companyName;
     private Integer employeesNumber;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "id")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "companyId")
     private List<Employee> employees;
 
     public Company() {
@@ -23,6 +23,10 @@ public class Company {
     public Company(String companyName, Integer employeesNumber) {
         this.companyName = companyName;
         this.employeesNumber = employeesNumber;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
     public Long getId() {
